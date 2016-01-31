@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Final Project</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.2/css/foundation.css">
+    
+  </head>
+ 
+
+  <body onLoad="loadObjs(); updateSliders(); main(); ">
+    <canvas id="webgl" width="1100" height="1100">
+    Please use a browser that supports "canvas"
+    </canvas>
+    
+    
+  
+    
+	<table border="1px" width="50%" style="float:right; font-size=20px;">
+    <!--X Selector -->
+    <tr><td colspan="2"><input type='text' style="font-size:18px;" id='objName' placeholder="Name"/></td>
+    <tr>
+    	<td>
+          <select id="obj_type" style="font-size:18px;">
+          	<option value="0">Cube</option>
+            <option value="1">Sphere</option>
+          </select>
+        </td>
+    	<td><select id="objects" style="font-size:18px;" onChange="updateSliders()"></select></td>
+    </tr>
+
+        <tr>
+            <td><strong style="font-size:30px;">X:</strong></td>
+            <td>
+              <div class="row">
+                  <div class="small-10 columns">
+                      <div id="xPosSlider" class="range-slider round" data-slider data-options="display_selector: #xLoc; initial: 0; step: 0.01; start: -100.0; end: 100.0;">
+                          <span class="range-slider-handle" role="slider" tabindex="0"></span>
+                          <span class="range-slider-active-segment"></span>
+                      </div>
+                  </div>
+                  <div class="small-2 columns">
+                      <input type="number" onChange="updateSliders()" id="xLoc" value="0" />
+                  </div>
+              </div>
+            </td>
+        </tr>
+        <!--Y Selector -->
+        <tr>
+            <td><strong style="font-size:30px;">Y:</strong></td>
+            <td>
+                <div class="row">
+                    <div class="small-10 columns">
+                        <div id="yPosSlider" class="range-slider round" data-slider data-options="display_selector: #yLoc; initial: 0; step: 0.01; start: -100.0; end: 100.0;">
+                            <span class="range-slider-handle" role="slider" tabindex="0"></span>
+                            <span class="range-slider-active-segment"></span>
+                        </div>
+                    </div>
+                    <div class="small-2 columns">
+                        <input type="number" onChange="updateSliders()" id="yLoc" value="0" />
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <!--Z Selector -->
+        <tr>
+            <td><strong style="font-size:30px;">Z:</strong></td>
+            <td>
+            <div class="row">
+                <div class="small-10 columns">
+                    <div id="zPosSlider" class="range-slider round" data-slider data-options="display_selector: #zLoc; initial: 0; step: 0.01; start: -100.0; end: 100.0;">
+                        <span class="range-slider-handle" role="slider" tabindex="0"></span>
+                        <span class="range-slider-active-segment"></span>
+                    </div>
+                </div>
+                <div class="small-2 columns">
+                    <input type="number" onChange="updateSliders()" id="zLoc" value="0"/>
+                </div>
+            </div>
+            </td>
+        </tr>
+        <tr>
+            <td><strong style="font-size:30px;">Scale X:</strong></td>
+            <td>
+            <div class="row">
+                <div class="small-10 columns">
+                    <div id="xScaleSlider" class="range-slider round" data-slider data-options="display_selector: #xScale; initial: 1; step: 0.01; start: 0.01; end: 10.0;">
+                        <span class="range-slider-handle" role="slider" tabindex="0"></span>
+                        <span class="range-slider-active-segment"></span>
+                    </div>
+                </div>
+                <div class="small-2 columns">
+                    <input type="number" onChange="updateSliders()" id="xScale" value="0"/>
+                </div>
+            </div>
+            </td>
+        </tr>
+        <tr>
+            <td><strong style="font-size:30px;">Scale Y:</strong></td>
+            <td>
+            <div class="row">
+                <div class="small-10 columns">
+                    <div id="yScaleSlider" class="range-slider round" data-slider data-options="display_selector: #yScale; initial: 1; step: 0.01; start: 0.01; end: 10.0;">
+                        <span class="range-slider-handle" role="slider" tabindex="0"></span>
+                        <span class="range-slider-active-segment"></span>
+                    </div>
+                </div>
+                <div class="small-2 columns">
+                    <input type="number" onChange="updateSliders()" id="yScale" value="0"/>
+                </div>
+            </div>
+            </td>
+        </tr>
+        <tr>
+            <td><strong style="font-size:30px;">Scale Z:</strong></td>
+            <td>
+            <div class="row">
+                <div class="small-10 columns">
+                    <div id="zScaleSlider" class="range-slider round" data-slider data-options="display_selector: #zScale; initial: 1; step: 0.01; start: 0.01; end: 10.0;">
+                        <span class="range-slider-handle" role="slider" tabindex="0"></span>
+                        <span class="range-slider-active-segment"></span>
+                    </div>
+                </div>
+                <div class="small-2 columns">
+                    <input type="number" onChange="updateSliders()" id="zScale" value="0"/>
+                </div>
+            </div>
+            </td>
+        </tr>
+        <tr>
+            <td><strong style="font-size:30px;">Rotation X:</strong></td>
+            <td>
+            <div class="row">
+                <div class="small-10 columns">
+                    <div id="xRotSlider" class="range-slider round" data-slider data-options="display_selector: #xRot; initial: 0; step: 1; start: 0; end: 360.0;">
+                        <span class="range-slider-handle" role="slider" tabindex="0"></span>
+                        <span class="range-slider-active-segment"></span>
+                    </div>
+                </div>
+                <div class="small-2 columns">
+                    <input type="number" onChange="updateSliders()" id="xRot" value="0"/>
+                </div>
+            </div>
+            </td>
+        </tr>        
+        <tr>
+            <td><strong style="font-size:30px;">Rotation Y:</strong></td>
+            <td>
+            <div class="row">
+                <div class="small-10 columns">
+                    <div id="yRotSlider" class="range-slider round" data-slider data-options="display_selector: #yRot; initial: 0; step: 1; start: 0; end: 360.0;">
+                        <span class="range-slider-handle" role="slider" tabindex="0"></span>
+                        <span class="range-slider-active-segment"></span>
+                    </div>
+                </div>
+                <div class="small-2 columns">
+                    <input type="number" onChange="updateSliders()" id="yRot" value="0"/>
+                </div>
+            </div>
+            </td>
+        </tr>
+        <tr>
+            <td><strong style="font-size:30px;">Rotation Z:</strong></td>
+            <td>
+            <div class="row">
+                <div class="small-10 columns">
+                    <div id="zRotSlider" class="range-slider round" data-slider data-options="display_selector: #zRot; initial: 0; step: 1; start: 0; end: 360.0;">
+                        <span class="range-slider-handle" role="slider" tabindex="0"></span>
+                        <span class="range-slider-active-segment"></span>
+                    </div>
+                </div>
+                <div class="small-2 columns">
+                    <input type="number" onChange="updateSliders()" id="zRot" value="0"/>
+                </div>
+            </div>
+            </td>
+        </tr>
+        <tr>
+       		<td><strong style="font-size:30px;">Center X:</strong></td>
+            <td>
+            <div class="row">
+                <div class="small-10 columns">
+                    <div id="xCenterSlider" class="range-slider round" data-slider data-options="display_selector: #xCenter; initial: 0; step: 0.01; start: -100.0; end: 100.0;">
+                        <span class="range-slider-handle" role="slider" tabindex="0"></span>
+                        <span class="range-slider-active-segment"></span>
+                    </div>
+                </div>
+                <div class="small-2 columns">
+                    <input type="number" onChange="updateSliders()" id="xCenter" value="0"/>
+                </div>
+            </div>
+            </td>
+        </tr>
+        <tr>
+            <td><strong style="font-size:30px;">Center Y:</strong></td>
+            <td>
+            <div class="row">
+                <div class="small-10 columns">
+                    <div id="yCenterSlider" class="range-slider round" data-slider data-options="display_selector: #yCenter; initial: 0; step: 0.01; start: -100.0; end: 100.0;">
+                        <span class="range-slider-handle" role="slider" tabindex="0"></span>
+                        <span class="range-slider-active-segment"></span>
+                    </div>
+                </div>
+                <div class="small-2 columns">
+                    <input type="number" onChange="updateSliders()" id="yCenter" value="0"/>
+                </div>
+            </div>
+            </td>
+        </tr>
+        <tr>
+            <td><strong style="font-size:30px;">Center Z:</strong></td>
+            <td>
+            <div class="row">
+                <div class="small-10 columns">
+                    <div id="zCenterSlider" class="range-slider round" data-slider data-options="display_selector: #zCenter; initial: 0; step: 0.01; start: -100.0; end: 100.0;">
+                        <span class="range-slider-handle" role="slider" tabindex="0"></span>
+                        <span class="range-slider-active-segment"></span>
+                    </div>
+                </div>
+                <div class="small-2 columns">
+                    <input type="number" onChange="updateSliders()" id="zCenter" value="0"/>
+                </div>
+            </div>
+            </td>
+        </tr>
+        <tr>
+            <td><strong style="font-size:30px;">Red:</strong></td>
+            <td>
+            <div class="row">
+                <div class="small-10 columns">
+                    <div id="redSlider" class="range-slider round" data-slider data-options="display_selector: #Cred; initial: .5; step: 0.01; start: 0; end: 1.0;">
+                        <span class="range-slider-handle" role="slider" tabindex="0"></span>
+                        <span class="range-slider-active-segment"></span>
+                    </div>
+                </div>
+                <div class="small-2 columns">
+                    <input type="number" onChange="updateSliders()" id="Cred" value="0"/>
+                </div>
+            </div>
+            </td>
+        </tr>
+        <tr>
+            <td><strong style="font-size:30px;">Green:</strong></td>
+            <td>
+            <div class="row">
+                <div class="small-10 columns">
+                    <div id="greenSlider" class="range-slider round" data-slider data-options="display_selector: #Cgreen; initial: .5; step: 0.01; start: 0; end: 1.0;">
+                        <span class="range-slider-handle" role="slider" tabindex="0"></span>
+                        <span class="range-slider-active-segment"></span>
+                    </div>
+                </div>
+                <div class="small-2 columns">
+                    <input type="number" onChange="updateSliders()" id="Cgreen" value="0"/>
+                </div>
+            </div>
+            </td>
+        </tr>
+        <tr>
+            <td><strong style="font-size:30px;">Blue:</strong></td>
+            <td>
+            <div class="row">
+                <div class="small-10 columns">
+                    <div id="blueSlider" class="range-slider round" data-slider data-options="display_selector: #Cblue; initial: .5; step: 0.01; start: 0; end: 1.0;">
+                        <span class="range-slider-handle" role="slider" tabindex="0"></span>
+                        <span class="range-slider-active-segment"></span>
+                    </div>
+                </div>
+                <div class="small-2 columns">
+                    <input type="number" onChange="updateSliders()" id="Cblue" value="0"/>
+                </div>
+            </div>
+            </td>
+        </tr>
+	</table>
+    <div>
+	<center>
+        <span>
+            <button onClick="createObject()">Create Object</button>
+            <button onClick="deleteObject()">Delete Object</button>
+        </span>
+        <h6 id="noticeMsg"></h6>
+        <h6 id="errorMsg"></h6>
+	</center>
+    
+    </div>
+    <div>
+    	<table border="1px" width="50%" style="float:right; font-size=20px;">
+          <th><strong style="font-size:30px;">Lighting</strong></th>
+          <th>
+            <select id="ltoggle" style="font-size:18px;">
+              <option value="1">ON</option>
+              <option value="0">OFF</option>
+            </select>
+          </th>
+            <tr>
+              <td><strong style="font-size:30px;">Light X:</strong></td>
+              <td>
+              	<div class="row">
+                  <div class="small-10 columns">
+                      <div id="lightXSlider" class="range-slider round" data-slider data-options="display_selector: #lposx; initial: 0; step: 0.01; start: -100.0; end: 100.0;">
+                          <span class="range-slider-handle" role="slider" tabindex="0"></span>
+                          <span class="range-slider-active-segment"></span>
+                      </div>
+                  </div>
+                <div class="small-2 columns">
+                    <input type="number" onChange="updateSliders()" id="lposx" value="0"/>
+                </div>
+            	</div>
+              </td>
+            </tr>
+            <tr>
+              <td><strong style="font-size:30px;">Light Y:</strong></td>
+              <td>
+              	<div class="row">
+                  <div class="small-10 columns">
+                      <div id="lightYSlider" class="range-slider round" data-slider data-options="display_selector: #lposy; initial: 0; step: 0.01; start: -100.0; end: 100.0;">
+                          <span class="range-slider-handle" role="slider" tabindex="0"></span>
+                          <span class="range-slider-active-segment"></span>
+                      </div>
+                  </div>
+                <div class="small-2 columns">
+                    <input type="number" onChange="updateSliders()" id="lposy" value="0"/>
+                </div>
+            	</div>
+              </td>
+            </tr>
+            <tr>
+              <td><strong style="font-size:30px;">Light Z:</strong></td>
+              <td>
+              	<div class="row">
+                  <div class="small-10 columns">
+                      <div id="lightZSlider" class="range-slider round" data-slider data-options="display_selector: #lposz; initial: 0; step: 0.01; start: -100.0; end: 100.0;">
+                          <span class="range-slider-handle" role="slider" tabindex="0"></span>
+                          <span class="range-slider-active-segment"></span>
+                      </div>
+                  </div>
+                <div class="small-2 columns">
+                    <input type="number" onChange="updateSliders()" id="lposz" value="0"/>
+                </div>
+            	</div>
+              </td>
+            </tr>
+        </table>
+    </div>
+    <p><strong style="font-size:24px;">ReadMe</strong></p>
+    <p><strong style="font-size:24px;">Arrow Keys move you. </strong></p>
+    <p><strong style="font-size:20px;">When you load, you need to back up to see the initial scene.</strong></p>
+    <p><strong style="font-size:20px;">You load in looking in the POSITIVE Z direction, so your X directions will be backwards.</strong></p>
+    <p><strong style="font-size:20px;">Object EasterEggs: Name an object "Ground" and it loads a grass texture. Name an object "Sky" and it loads a stars texture.</strong></p>
+    <p><strong style="font-size:20px;">I recommend Position(0,-1,0) Scale(100,.1,100) for the ground.</strong></p>
+    <p><strong style="font-size:20px;">I recommend Position(0,0,0) Scale(200,200,200) for the sky.</strong></p>
+    <p><strong style="font-size:20px;">
+    When creating an object it makes it at the origin it only takes into account the name field and the object type (cube or sphere).
+    </strong></p>
+    <p><strong style="font-size:21px;">Loaded with a semi-scale solar system. It's close, but not perfect.</strong></p>
+  </body>
+</html>
+
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+  	<script src="http://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.2/js/foundation.min.js"></script>
+  	<script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.js"></script>
+ 	<script src="../lib/webgl-utils.js"></script>
+    <script src="../lib/webgl-debug.js"></script>
+    <script src="../lib/cuon-utils.js"></script>
+    <script src="../lib/cuon-matrix.js"></script>
+    <script src="objs.js"></script>
+    <script src="atest.js"></script> 
+	<script>
+		$(document).ready(function() {
+    		$(document).foundation();
+		})
+	</script>

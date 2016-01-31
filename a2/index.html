@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>A2 - Cameron Brownfield</title>
+  </head>
+
+  <body onload="main()">
+    <canvas id="webgl" width="400" height="400">
+    Please use a browser that supports "canvas"
+    </canvas>
+    <br />
+
+    <p> Rotate: 
+    <select id="s_rotate">
+      <option value="true">On</option>
+      <option value="false">Off</option>
+    </select>
+    </p>
+
+    </p>
+    <p> Number of Vertices:
+    <select id="s_vertices">
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+      <option value="6">6</option>
+      <option value="7">7</option>
+      <option value="8">8</option>
+    </select>
+    </p>
+
+    <p> Color:
+    <select id="s_color">
+      <option value="gray">Gray</option>
+      <option value="red">Red</option>
+      <option value="blue">Blue</option>
+      <option value="green">Green</option>
+    </select>
+    </p>
+
+    <p> Render Format: 
+    <select id="s_format">
+      <option value="TriangleStrip">Triangle Strip</option>
+      <option value="Triangles">Triangle</option>
+      <option value="TriangleFan">TriangleFan</option>
+      <option value="Lines">Lines</option>
+      <option value="LineStrip">Line Strip</option>
+      <option value="LineLoop">Line Loop</option>
+      <option value="Points">Points</option>
+    </select>
+    </p>
+
+    <script src="../lib/webgl-utils.js"></script>
+    <script src="../lib/webgl-debug.js"></script>
+    <script src="../lib/cuon-utils.js"></script>
+    <script src="../lib/cuon-matrix.js"></script>
+    <script src="a3.js"></script>
+  </body>
+</html>
+
